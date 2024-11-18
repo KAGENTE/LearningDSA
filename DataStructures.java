@@ -20,30 +20,45 @@ class DataStructures{
         array.add(31);
         System.out.println(array);
 
-        quickSort(array,0, array.size()-1);
+        selectionSort(array);
         System.out.println(bynarySearch(array, 31));
         System.out.println(array);
     }
 
-    public static ArrayList<Integer> arraySort(ArrayList<Integer> list){
-        int menor = 0;
-        int indexJ= 0;
-       for(int i = 0;i< list.size();i++){
-        menor = list.get(i);
-        indexJ = i;
-        for (int j = i+1; j< list.size();j++){
-            if( list.get(j)< menor){
-                menor = list.get(j);
-                indexJ = j;
-            }
-        }
+    public static void selectionSort(ArrayList<Integer> list){
 
-        int temp = list.get(i);
-        list.set(i,  menor);
-        list.set(indexJ, temp);
-       }
-       return list;
+        for(int i = 0; i < list.size(); i++){//loop through the indexes of the array that will be tested if is greather than j later
+            int lowestIndex = i;// set a variable with the number inside the index of i so it can be tested
+            for(int j = i+1 ; j < list.size() ;j++){//now a loop to test if the value is less than the rest of the array
+                if(list.get(lowestIndex)> list.get(j)){
+                    lowestIndex = j;
+                }
+            }
+            swap(list, lowestIndex, i); //now working with the indexes instead of the numbers it self we can use the new swap method
+        }
+        
     }
+/*             int temp = list.get(i);//swap the values of the current index to the lowest number encountered on the remaining array
+            list.set(i, lowest);//cant be switched to swap method since we are not swiching indexes but abstraction of lowest number
+            list.set(j, temp); */
+           
+    
+
+        /* for(int i = 0;i< list.size();i++){           Code i made  in the fist contact with DSA and selection sort
+            int menor = list.get(i);                    had some troubble to understand but tried to do by myself knowing it wont be as good as it coud be
+            int indexJ = i;                         
+            for (int j = i+1; j< list.size();j++){ 
+                if( list.get(j)< menor){
+                    menor = list.get(j);
+                    indexJ = j;
+                }
+            }
+
+            int temp = list.get(i);
+            list.set(i,  menor);
+            list.set(indexJ, temp);
+       } */
+    
     
     public static int bynarySearch(ArrayList<Integer> list, int target){
         int start = 0;
@@ -60,18 +75,14 @@ class DataStructures{
 
     }
 
-    public static ArrayList<Integer> bubbleSort(ArrayList<Integer> list){
-        int temp;
+    public static void bubbleSort(ArrayList<Integer> list){
             for(int i= 0;i < list.size();i++){
                 for(int j=0;j< list.size()-i-1;j++){
                     if(list.get(j)>list.get(j+1)){
-                        temp = list.get(j);
-                        list.set(j, list.get(j+1));
-                        list.set(j+1, temp);
+                        swap(list, j, j+1);
                     }
                 }
             }
-            return list;
     }
 
     public static ArrayList<Integer> insertionSort(ArrayList<Integer> list){
@@ -117,4 +128,6 @@ class DataStructures{
         list.set(index1, list.get(index2));
         list.set(index2, temp);
     }
+
+     
 }
