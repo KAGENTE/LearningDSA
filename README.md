@@ -7,8 +7,5 @@ TO DO: <br>
 -Add the swap method to the other methods that use it.✅<br>
 -keep adding algorithms to all types of data structures. 🇼🇮🇵<br>
 -keep this repository updated with git commands. 🇼🇮🇵<br>
-<<<<<<< HEAD
 -review the algorithms and update then with new skills. 🇼🇮🇵</p>
-=======
--review the algorithms and update then with new skills. 🇼🇮🇵</p>
->>>>>>> 807773463a937c620168cfd65be5821b4bfc6e29
+
