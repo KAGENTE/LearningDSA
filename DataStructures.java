@@ -20,7 +20,7 @@ class DataStructures{
         array.add(31);
         System.out.println(array);
 
-        selectionSort(array);
+        mergeSort(array,0,array.size()-1);
         System.out.println(bynarySearch(array, 31));
         System.out.println(array);
     }
@@ -129,10 +129,55 @@ class DataStructures{
 
 
     private static void swap (ArrayList<Integer> list,int index1,int index2){
-        int temp = list.get(index1);
+        int temp = list.get(index1);//simple method to swap values
         list.set(index1, list.get(index2));
         list.set(index2, temp);
     }
 
-     
+    public static void mergeSort(ArrayList<Integer> list,int left,int right){
+        
+        if(left < right){// to end the loop when it get sorted
+        int mid = (left + right)/2;
+        mergeSort(list, left, mid);//divide the left side of the array
+        mergeSort(list, mid+1, right);//then the righ side
+        merge(list, left, mid, right);//merge the divided values
+        }
+    }
+    public static void merge(ArrayList<Integer> list,int left,int mid,int right){
+        int lengh1 = mid - left +1;//to find the lengh of the left and right parts of the array
+        int lengh2 = right - mid;
+        int arr1[] = new int[lengh1];//new arrays that will hold the values
+        int arr2[] = new int[lengh2];
+            for(int i=0;i<lengh1;i++){
+                arr1[i]= list.get(left+i);//hold the values of the divided array into new arrays ->left side
+            }
+            for(int i=0;i<lengh2;i++){
+                arr2[i]= list.get(mid+1+i);//->right side
+            }
+        int j=0;
+        int i=0;
+        int k=left;
+            while(i< lengh1 && j<lengh2){
+                if(arr1[i]<= arr2[j]){//will keep looping till the arrays get sorted
+                    list.set(k, arr1[i]);//set the value that is less equal to the arr2[j] on the list
+                    i++;//increment now that the value was found for that position
+                }
+                    else{
+                        list.set(k, arr2[j]);//if the values is not less or equal to arr2[j] then send j value to the original list
+                        j++;//increment j now that its value has been used
+                    }
+                k++;//increment k since now it passed the first while loop it must have been founded the correct value for its position
+                } 
+                while (i<lengh1) {
+                    list.set(k, arr1[i]);//if one of the arrays come to the end it means that the other valeus is already sorted
+                    i++;
+                    k++;
+                } 
+                while (j<lengh2) {
+                    list.set(k, arr2[j]);//and then the same to the other side
+                    j++;
+                    k++;
+                } 
+                
+    }
 }
