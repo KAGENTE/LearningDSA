@@ -20,8 +20,8 @@ class DataStructures{
         array.add(31);
         System.out.println(array);
 
-        mergeSort(array,0,array.size()-1);
-        System.out.println(bynarySearch(array, 31));
+        heapSort(array);
+        System.out.println(bynarySearch(array, 15));
         System.out.println(array);
     }
 
@@ -71,8 +71,8 @@ class DataStructures{
                 if(list.get(half) < target){
                     start = half+1;//if target is bigger then you bring the start variable to the number at front of the old half variable
                 }
-                else if(half > target){
-                    end = half-1;//else if target is less than targer then you bring the end variable to the index before
+                else if(list.get(half) > target){
+                    end = half-1;//else if target is less than target then you bring the end variable to the index before
                 }
                 
             }
@@ -180,4 +180,34 @@ class DataStructures{
                 } 
                 
     }
+
+    public static void heapSort(ArrayList<Integer> list){
+            for(int i =(list.size()/2)-1;i>=0;i--){//get first half of the array as the nodes of the bynary tree since nodes = half of the leafs
+                    heapfy(list, list.size(), i);//use heapfy function to sort the tree
+                }
+                for(int j = (list.size())-1; j > 0 ;j--){//once the tree is sorted it starts this to change the values
+                    swap(list, j, 0);//the first value get swaped with the last since the greatest will be at the final
+                    heapfy(list, j, 0); //after removing one node of the tree it then re-sort the array
+                }
+        }
+
+    public static void heapfy(ArrayList<Integer> list,int size, int i){
+        int root = i;//root values that are the first half of the string
+        int right = (root*2) +2;//then the left and right from each node will be at exactly at "(root*2)+2" or "(root*2)+1" index at the array
+        int left = (root*2) +1;
+
+        if(left < size && list.get(left) > list.get(root)){//then it checks what is gratest and set it to be the root, left or right
+            root = left;
+        }
+        if(right < size && list.get(right) > list.get(root)){
+            root = right;
+        }
+        if(root != i){//and if in the end it founds something greater than it swap
+            swap(list, i, root);
+            heapfy(list, size, root);
+        }
+        
+    }
+    
+    
 }
