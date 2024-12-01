@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 class DataStructures{
@@ -19,9 +20,7 @@ class DataStructures{
         array.add(12);
         array.add(31);
         System.out.println(array);
-
-        heapSort(array);
-        System.out.println(bynarySearch(array, 15));
+        radixSort(array);
         System.out.println(array);
     }
 
@@ -209,5 +208,52 @@ class DataStructures{
         
     }
     
+    public static void countingSort(ArrayList<Integer> list){
+        int min = list.stream().min(Integer::compare).orElse(0); // discover min value of list
+        int max = list.stream().max(Integer::compare).orElse(Integer.MAX_VALUE);// discover max value of list
+        int count[] = new int[max - min +1];//array for counting is initialized with the value of (max-min + 1)
+        for (int value : list){//iterate through list 
+            count[value-min]++;//for every time a number appear gets to its index and add 1    
+        }
+        int arrIndex = 0;//to loop through the original list
+        for(int i = 0; i < max - min + 1; i++){//loop through the count array
+            while (count[i] > 0) {
+                list.set(arrIndex, i+min);//set the value of the index to the original array
+                count[i]--;
+                arrIndex++;
+            }
+        }
+    }
+
+
+
+    public static void Sort(ArrayList<Integer> list,int exp) {
+        int[] countArray = new int[10];//initialize a new array of size 10 to hold the numbers inside the first less significant digit
+        for (int value : list) {
+            countArray[(value / exp) % 10]++;//loop through the list and get the LSD
+        }
+        for (int i = 1; i < 10; i++) {
+            countArray[i] += countArray[i - 1];//increment the previus values of the array
+        }
+        int[] output = new int[list.size()];//output array
+        for (int i = list.size() - 1; i >= 0; i--) {
+            int current =  list.get(i);
+            int positionInArray = countArray[(current / exp) % 10] - 1;
+            output[positionInArray] = current;//set the values for the output array
+            countArray[(current / exp) % 10]--;
+        }
+        for (int i = 0; i < list.size(); i++) {
+            list.set(i, output[i]);//copy the values to the original array
+        }
+    }
+
+    public static void radixSort(ArrayList<Integer> list) {
+    int max = list.stream().max(Integer::compare).orElse(Integer.MAX_VALUE);// get the EXP of the max value and start the sort
+    for (int exp = 1; max / exp > 0; exp *= 10) {
+        Sort(list, exp);
+    }
+}
+
+
     
 }
